@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>75 Hard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div class="app">
+
+    
+    <aside class="sidebar">
+
+      <div class="sidebar-logo">
+        <span class="logo-mark">◎</span>
+        <span class="logo-word">75 Hard</span>
+      </div>
+
+      <nav class="sidebar-nav">
+        <a href="#" class="nav-link active" data-view="board">
+          <span class="nav-icon">⊞</span><span>Board</span>
+        </a>
+        <a href="#" class="nav-link" data-view="data">
+          <span class="nav-icon">≡</span><span>Data</span>
+        </a>
+        <a href="#" class="nav-link" data-view="upcoming">
+          <span class="nav-icon">›</span><span>Upcoming</span>
+        </a>
+        <a href="#" class="nav-link" data-view="complete">
+          <span class="nav-icon">✓</span><span>Complete</span>
+        </a>
+        <a href="#" class="nav-link" data-view="moodboard">
+          <span class="nav-icon">✦</span><span>Manifest</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-ring">
+        <div class="ring-wrap">
+          <svg class="ring-svg" viewBox="0 0 120 120">
+            <circle class="ring-track" cx="60" cy="60" r="50" />
+            <circle class="ring-fill" cx="60" cy="60" r="50" id="ringFill" />
+          </svg>
+          <div class="ring-center">
+            <span class="ring-num" id="ringNum">0</span>
+            <span class="ring-sub">of 75</span>
+          </div>
+        </div>
+        <div class="ring-label" id="streakLabel">0 day streak</div>
+      </div>
+
+      <div class="sidebar-stats">
+        <div class="stat-row">
+          <span class="stat-k">started</span>
+          <span class="stat-v" id="statStart">—</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-k">ends</span>
+          <span class="stat-v" id="statEnd">—</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-k">completed</span>
+          <span class="stat-v"><span id="statDone">0</span> / 75</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-k">days to go</span>
+          <span class="stat-v" id="statLeft">75</span>
+        </div>
+      </div>
+
+      <div class="sidebar-bottom">
+        <div class="date-field">
+          <label class="date-label" for="startDateInput">challenge start</label>
+          <input type="date" id="startDateInput" class="date-input" />
+        </div>
+        <button type="button" class="btn-primary" id="btnCompleteToday">complete today</button>
+        <button type="button" class="btn-ghost" id="btnReset">reset challenge</button>
+      </div>
+
+    </aside>
+
+    
+    <main class="main">
+
+      
+      <section class="view active" id="view-board">
+        <div class="view-header">
+          <h1 class="view-title">tracking</h1>
+          <p class="view-sub" id="todayStr"></p>
+        </div>
+        <div class="board-grid" id="boardGrid"></div>
+      </section>
+
+      
+      <section class="view" id="view-data">
+        <div class="view-header">
+          <h1 class="view-title">data</h1>
+        </div>
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Day</th>
+                <th>Date</th>
+                <th title="Water">💧</th>
+                <th title="Run">🏃</th>
+                <th title="Workout">💪</th>
+                <th title="LeetCode">💻</th>
+                <th title="Diet">🍎</th>
+                <th title="Reading">📖</th>
+                <th>Status</th>
+                <th>Progress</th>
+              </tr>
+            </thead>
+            <tbody id="dataBody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      
+      <section class="view" id="view-upcoming">
+        <div class="view-header">
+          <h1 class="view-title">upcoming</h1>
+        </div>
+        <div class="board-grid" id="upcomingGrid"></div>
+      </section>
+
+      
+      <section class="view" id="view-complete">
+        <div class="view-header">
+          <h1 class="view-title">complete</h1>
+        </div>
+        <div class="board-grid" id="completeGrid"></div>
+      </section>
+
+      
+      <section class="view" id="view-moodboard">
+        <div class="moodboard-hero">
+          <p class="mb-eyebrow">✦ &nbsp;manifestation &nbsp;✦</p>
+          <div
+            class="mb-statement"
+            id="mbStatement"
+            contenteditable="true"
+            data-ph="click to write your manifestation…"
+          ></div>
+        </div>
+
+        <div class="mb-toolbar">
+          <button type="button" class="btn-add" id="btnAddImg">+ add image</button>
+          <button type="button" class="btn-add" id="btnAddAffirm">+ add affirmation</button>
+        </div>
+
+        <div class="mb-grid" id="mbGrid"></div>
+      </section>
+
+    </main>
+  </div>
+
+  
+  <div class="overlay" id="dayOverlay">
+    <div class="modal day-modal">
+      <div class="modal-top">
+        <div class="modal-meta">
+          <p class="modal-eyebrow">75 hard</p>
+          <h2 class="modal-title" id="mdTitle">Day 01</h2>
+          <p class="modal-date" id="mdDate"></p>
+        </div>
+        <span class="badge" id="mdBadge">current</span>
+      </div>
+
+      <div class="modal-tasks" id="mdTasks"></div>
+
+      <div class="modal-actions">
+        <button type="button" class="btn-ghost modal-close" id="mdClose">close</button>
+        <button type="button" class="btn-dark" id="mdComplete">complete day ✓</button>
+      </div>
+    </div>
+  </div>
+
+  
+  <div class="overlay" id="addOverlay">
+    <div class="modal add-modal">
+      <div class="modal-top" style="margin-bottom:20px">
+        <h2 class="modal-title" id="addTitle">add image</h2>
+      </div>
+      <div id="addBody"></div>
+      <div class="modal-actions">
+        <button type="button" class="btn-ghost" id="addCancel">cancel</button>
+        <button type="button" class="btn-dark" id="addConfirm">add</button>
+      </div>
+    </div>
+  </div>
+
+  
+  <div class="toast" id="toast"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
